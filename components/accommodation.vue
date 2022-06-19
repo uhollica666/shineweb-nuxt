@@ -2,16 +2,16 @@
   <div class="accommodation-element mt-5">
     <h4>Accommodations</h4>
   </div>
-  <div class="row mb-5">
+  <div class="row mb-3">
     <div
-      v-for="accommodation in accommodations"
+      v-for="accommodation in computedObject"
       :key="accommodation.id"
       class="col-md-4 col-lg-3 col-xl-3 col-sm-6 col-xs-12 mt-3"
     >
       <div class="card mt-3">
         <div class="card-body">
           <img :src="accommodation.image_id" alt="" class="card-img" />
-          <NuxtLink to="/#AccomodationDetails" class="accommodation-details">
+          <NuxtLink :to="'/accomodation/'+ accommodation.title" class="accommodation-details">
             <div class="card-details">
               <h6 class="card-title text-truncate">
                 {{ accommodation.title }}
@@ -32,15 +32,46 @@
       </div>
     </div>
   </div>
+    <div class="d-flex btn-container">
+      <button @click="limit = !limit" class="btn mt-5 showButton" :class="{limit : !limit}">
+      Show All
+    </button>
+    </div>
 </template>
 
 <script>
 export default {
   props: ["accommodations"],
+
+data() {
+    return {
+      limit: 8,
+    }
+  },
+  computed: {
+    computedObject() {
+      return this.limit ? this.accommodations.slice(0, this.limit) : this.accommodations;
+    }
+  },
+
 };
 </script>
 
 <style scoped>
+.btn-container{
+  justify-content:flex-end;
+}
+button.limit{
+  display: none;
+}
+
+.showButton{
+  max-width: 100%;
+  background: #f7941e;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 2rem;
+}
 .start-icon {
   color: #f7941e;
   padding: 2px;

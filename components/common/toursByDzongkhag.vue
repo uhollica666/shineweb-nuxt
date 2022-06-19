@@ -1,6 +1,6 @@
 <template>
   <div class="by-category mt-5 mb-3">
-    <h4 class="heading text-capitalize">Explore {{ $route.name }} by Dzongkhags</h4>
+    <h4 class="heading text-capitalize">Explore {{ $route.name }} by Dzongkhag</h4>
     <p class="mt-3">{{ catSubtitle }}</p>
     <div class="row">
       <div
@@ -12,7 +12,7 @@
           <div class="card-body">
             <img :src="dzongkhag.image_id" alt="" class="card-img-dzo" />
             <router-link
-              to="/#AccomodationDetails"
+              :to="'/dzongkhags/'+ dzongkhag.location_id"
               class="category-details text-center"
             >
               <div class="card-details">

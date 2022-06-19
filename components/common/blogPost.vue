@@ -1,16 +1,18 @@
 <template>
-  <h4 class="text-center p-3">Read Stories</h4>
-  <p class="text-center">Explore the stories and weekly blog updates</p>
+  <div class="blog-post-topic" v-if="$route.params.location_id === 'Dagana' ">
+    <h4 class="text-center p-3">Read Jigs Stories</h4>
+    <p class="text-center">Explore the stories and weekly blog updates</p>
+  </div>
+  <div class="blog-post-topic" v-else>
+    <h4 class="text-center p-3">Popular Attraction of {{$route.params.location_id }}</h4>
+    <p class="text-center">Explore the stories and weekly blog updates</p>
+  </div>
   <div class="row flex-row flex-nowrap overflow-auto mb-5">
-    <div
-      class="col-md-4 col-lg-4 col-xl-4 col-sm-6 col-xs-6 mt-3 mx-auto"
-      v-for="story in stories"
-      :key="story.id"
-    >
+    <div class="col-md-4 col-lg-4 col-xl-4 col-sm-6 col-xs-6 mt-3 mx-auto" v-for="story in stories" :key="story.id">
       <div class="card mt-3 mb-3">
         <div class="card-body">
           <img :src="story.image_id" alt="" class="card-img-blog" />
-          <NuxtLink to="/#AccomodationDetails" class="category-details">
+          <NuxtLink :to="'/story/' + story.id" class="category-details">
             <div class="card-details">
               <h6 class="card-title text-truncate">
                 {{ story.post_id }}

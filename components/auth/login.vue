@@ -1,29 +1,53 @@
 <template>
-    <form class="auth-form">
+    <form class="auth-form" @submit.prevent="handleSubmit">
         <div class="mb-3">
             <h3 class="auth-header mt-3 mb-3">Login to Shine!</h3>
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control input-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@example.com" required>
+            <input type="email" class="form-control input-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="email@example.com" v-model="email" required />
         </div>
         <div class="mb-3">
-            <label for="InputPassword" class="form-label">Password</label>            
-            <input type="password" class="form-control input-control" id="InputPassword" placeholder="********" required>
-            </div>   
+            <label for="InputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control input-control" id="InputPassword" placeholder="********"
+                v-model="password" required />
+        </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
             <label class="form-check-label" for="exampleCheck1">Remember Me</label>
         </div>
         <button type="submit" class="btn submit-btn">Login</button>
         <div class="no-account-register mt-3 mb-3">
-            Don't have an account? Register <NuxtLink to="/register">Here</NuxtLink>. <br />Forgot <NuxtLink
-                to="/forgotPassword">Password?</NuxtLink>
+            Don't have an account? Register <NuxtLink to="/register">Here</NuxtLink>.
+            <br />Forgot <NuxtLink to="/forgotPassword">Password?</NuxtLink>
         </div>
     </form>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-    }
+    data() {
+        return {
+            email: "",
+            password: "",
+        };
+    },
+    methods: {
+        async handleSubmit() {
+            const response = await axios.post('http://localhost:8000/api/login', {
+                email: this.email,
+                password: this.password,
+            });
+                   
+            this.$router.push('/');
+        },
+
+    },
+    // setup: {
+    //     const token = useState('token', response.data.token),
+    //     const user = useState('user', response.data.user)
+    // },
+};
 </script>
 
 <style scoped>

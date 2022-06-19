@@ -1,31 +1,35 @@
 <template>
-    <form class="auth-form-register">
+    <form class="auth-form-register" @submit.prevent="handleSubmit">
         <div class="mb-3">
             <h3 class="auth-header mt-3 mb-4">Join our Shine family!</h3>
 
             <div class="row mb-3">
                 <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12">
                     <label class="form-label" for="firstName">First Name</label>
-                    <input type="text" id="firstName" class="form-control input-control" placeholder="First Name" required/>
+                    <input type="text" id="firstName" class="form-control input-control" placeholder="first name"
+                        required v-model="firstName" />
                 </div>
                 <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12">
                     <label class="form-label" for="lastName">Last Name</label>
-                    <input type="text" id="lastName" class="form-control input-control" placeholder="Last Name" required/>
+                    <input type="text" id="lastName" class="form-control input-control" placeholder="last name" required
+                        v-model="lastName" />
                 </div>
             </div>
 
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control input-control" id="exampleInputEmail1" aria-describedby="emailHelp" required placeholder="email@example.com">
+            <input v-model="email" type="email" class="form-control input-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp" required placeholder="email@example.com" />
         </div>
         <div class="mb-3">
-            <label for="InputPassword" class="form-label">Password</label>            
-            <input type="password" class="form-control input-control" id="InputPassword" placeholder="********" required>
-            </div>   
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+            <label for="InputPassword" class="form-label">Password</label>
+            <input v-model="password" type="password" class="form-control input-control" id="InputPassword"
+                placeholder="********" required />
         </div>
-        <button type="submit" class="btn submit-btn">Register</button>
+        <!-- <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+            <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+        </div> -->
+        <button type="submit" class="btn submit-btn mt-3">Register</button>
         <div class="no-account-register mt-3 mb-3">
             Already have an account? Login <NuxtLink to="/login">Here</NuxtLink>.
         </div>
@@ -33,8 +37,29 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-}
+    data() {
+        return {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+        };
+    },
+    methods: {
+        async handleSubmit() {
+            const response = await axios.post('http://localhost:8000/api/register', {
+                firstName: this.firstName,
+                lastName: this.lastName,
+                email: this.email,
+                password: this.password,
+            });
+            console.log(response);
+            this.$router.push('/login');
+        },
+    },
+};
 </script>
 
 <style scoped>

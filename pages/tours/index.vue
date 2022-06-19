@@ -10,17 +10,17 @@
           />
         </div>
         <div
-          class="col-md-9 col-lg-9 col-xl-9 col-sm-12 col-xs-12 infinite-scroll"
+          class="col-md-9 col-lg-9 col-xl-9 col-sm-12 col-xs-12"
         >
           <CommonPageBanner />
           <CommonSortByCategory />
           <CommonToursByDzongkhag />
-          <Tours :tours="tours" />
+          <LazyTours :tours="tours" />
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12 mt-5">
-          <CommonPromotionWrapper>
+          <LazyCommonPromotionWrapper>
             <CommonPromotion title="Top Events">
               <CommonPromotionEvents />
             </CommonPromotion>
@@ -30,12 +30,12 @@
             <CommonPromotion title="Top Selling Products">
               <CommonPromotionProducts />
             </CommonPromotion>
-          </CommonPromotionWrapper>
+          </LazyCommonPromotionWrapper>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12 mt-5">
-          <CommonBlogPost />
+          <LazyCommonBlogPost />
         </div>
       </div>
     </div>
@@ -44,6 +44,7 @@
 
 <script>
 import TOURS_DATA from "~/APIs/Tours_DATA.json";
+
 
 export default {
     data() {
@@ -57,7 +58,6 @@ export default {
     // async mounted(){
     //     const touritems = await fetch('http://localhost:8000/api/tours');
     //     const content = await touritems.json();
-    //     this.tours = content;
     // },
 
   methods: {

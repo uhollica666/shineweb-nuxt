@@ -23,6 +23,9 @@
                             <li>
                                 <NuxtLink to="/register"><i class="bi bi-lock"></i>Register</NuxtLink>
                             </li>
+                            <li>
+                                <LightDarkSwitch class="mx-3"/>
+                            </li>
                         </ul>
                     </div>
                 </div>

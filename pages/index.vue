@@ -28,9 +28,7 @@
           <HomeSidebar />
         </div>
         <div class="col-md-9 col-xl-9 col-lg-9 col-xs-12 col-sm-12">
-          <CommonPageBanner />
-          <CommonPageBanner />
-          <CommonPageBanner />
+          <!-- <FeaturedProducts /> -->
         </div>
       </div>
     </div>
@@ -38,7 +36,16 @@
 </template>
 
 <script>
+// import axios from 'axios';
 export default {
+  // async created() {
+  //   const response = await axios.get('http://localhost:3000/api/user', {
+  //     headers: {
+  //       Authorization: `Bearer ${this.$store.state.token}`,
+  //     },
+  //   });
+  //   console.log(response);
+  // },
   setup() {
     const CarouselSlides = ["slider1", "slider2", "slider3", "slider4"];
     return {
@@ -57,7 +64,6 @@ export default {
   max-height: 100vh;
   height: 60vh;
 }
-
 .carousel .welcome-note {
   position: absolute;
   top: 50%;

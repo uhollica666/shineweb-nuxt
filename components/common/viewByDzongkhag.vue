@@ -12,7 +12,7 @@
           <div class="card-body">
             <img :src="dzongkhag.image_id" alt="" class="card-img-dzo" />
             <NuxtLink
-              to="/#AccomodationDetails"
+              :to="'/dzongkhags/' + dzongkhag.location_id"
               class="category-details text-center"
             >
               <div class="card-details">
