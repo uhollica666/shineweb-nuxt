@@ -1,34 +1,24 @@
 <template>
   <NuxtLayout name="default">
-    <HomeCarousel
-    :navigation="true"
-    :pagination="true"
-    :startAutoPlay="true"
-    :timeOut="5000"
-    class="carousel"
-    v-slot="{ currentSlide }"
-  >
-    <HomeCarouselSlide v-for="(slide, index) in CarouselSlides" :key="index">
-      <div v-show="currentSlide === index + 1" class="slide-info">
-        <img
-          :src="(`assets/img/${slide}.jpg`)"
-          alt=""
-          class="img-fluid"
-        />
+    <HomeCarousel :navigation="true" :pagination="true" :startAutoPlay="true" :timeOut="5000" class="carousel"
+      v-slot="{ currentSlide }">
+      <HomeCarouselSlide v-for="(slide, index) in CarouselSlides" :key="index">
+        <div v-show="currentSlide === index + 1" class="slide-info">
+          <img :src="(`assets/img/${slide}.jpg`)" alt="" class="img-fluid" />
+        </div>
+      </HomeCarouselSlide>
+      <div class="welcome-note text-center">
+        <h1>Welcome to Shine!</h1>
+        <p>Your Best Bhutan Experience</p>
       </div>
-    </HomeCarouselSlide>
-    <div class="welcome-note text-center">
-      <h1>Welcome to Shine!</h1>
-      <p>Your Best Bhutan Experience</p>
-    </div>
-  </HomeCarousel>
+    </HomeCarousel>
     <div class="container">
-      <div class="row">
+      <div class="row my-5">
         <div class="col-md-3 col-xl-3 col-lg-3 col-xs-12 col-sm-12">
           <HomeSidebar />
         </div>
         <div class="col-md-9 col-xl-9 col-lg-9 col-xs-12 col-sm-12">
-          <!-- <FeaturedProducts /> -->
+          <HomeContent />
         </div>
       </div>
     </div>
@@ -36,16 +26,19 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 export default {
-  // async created() {
-  //   const response = await axios.get('http://localhost:3000/api/user', {
-  //     headers: {
-  //       Authorization: `Bearer ${this.$store.state.token}`,
-  //     },
-  //   });
-  //   console.log(response);
-  // },
+
+    // async created() {
+    // const response = await axios.get('http://localhost:8000/api/user',{
+    //   headers: {
+    //     // Authorization: `Bearer ${localStorage.getItem('token')}`
+    //   }
+    // });
+
+    //   console.log(response)
+    // },
+
   setup() {
     const CarouselSlides = ["slider1", "slider2", "slider3", "slider4"];
     return {
@@ -59,11 +52,13 @@ export default {
 .card-body {
   height: 20rem;
 }
+
 .carousel {
   position: relative;
   max-height: 100vh;
   height: 60vh;
 }
+
 .carousel .welcome-note {
   position: absolute;
   top: 50%;
@@ -95,6 +90,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .slide-info img {
   min-width: 100%;
   height: 100%;

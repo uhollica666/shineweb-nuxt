@@ -3,7 +3,11 @@ import axios from "axios";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  buildModules: [ "@pinia/nuxt"],
+  axios: {
+    baseURL: 'http://localhost:8000/api/',
+  },
+
+  buildModules: [["@nuxtjs/axios", { proxyHeaders: false }], "@nuxtjs/proxy"],
 
   css: [
     "~/node_modules/bootstrap/dist/css/bootstrap.min.css",

@@ -16,6 +16,7 @@
         <CommonSortByCategory />
         <CommonViewByDzongkhag />
         <Accommodation :accommodations="accommodations" />
+        <Hotels :hotels="hotels" />
       </div>
     </div>
     <div class="row">

@@ -1,29 +1,26 @@
 <template>
-  <div class="blog-post-topic" v-if="$route.params.location_id === 'Dagana' ">
-    <h4 class="text-center p-3">Read Jigs Stories</h4>
-    <p class="text-center">Explore the stories and weekly blog updates</p>
-  </div>
-  <div class="blog-post-topic" v-else>
-    <h4 class="text-center p-3">Popular Attraction of {{$route.params.location_id }}</h4>
+  <div>
+    <div class="blog-post-topic">
+    <h4 class="text-center p-3">Popular Attraction of {{ $route.name }}</h4>
     <p class="text-center">Explore the stories and weekly blog updates</p>
   </div>
   <div class="row flex-row flex-nowrap overflow-auto mb-5">
     <div class="col-md-4 col-lg-4 col-xl-4 col-sm-6 col-xs-6 mt-3 mx-auto" v-for="story in stories" :key="story.id">
       <div class="card mt-3 mb-3">
         <div class="card-body">
-          <img :src="story.image_id" alt="" class="card-img-blog" />
-          <NuxtLink :to="'/story/' + story.id" class="category-details">
+          <img :src="apiURL + story.file_path" alt="" class="card-img-blog img-fluid" :data-src="apiURL + story.file_path" />
+          <NuxtLink :to="'/story/' + story.slug" class="category-details">
             <div class="card-details">
               <h6 class="card-title text-truncate">
-                {{ story.post_id }}
+                {{ story.title}}
               </h6>
-              <p class="post-details text-truncate">{{ story.post_details }}</p>
+              <p class="post-details text-truncate">{{ story.content }}</p>
               <div class="location text-truncate">
-                <i class="bi bi-tag"></i> Category: {{ story.category_id }}
+                <i class="bi bi-tag"></i> Category: {{ story.name }}
               </div>
               <p class="my-3">
                 <i class="bi bi-calendar"></i> Posted on
-                {{ story.date_added }}
+                {{ story.created_at }}
               </p>
             </div>
           </NuxtLink>
@@ -31,20 +28,29 @@
       </div>
     </div>
   </div>
+  </div>
+  
 </template>
 
 <script>
-import BLOG_DATA from "~/APIs/Story_DATA.json";
 export default {
-  data() {
+  async setup() {
+    const apiURL = 'http://shine.test/uploads/';
+    const [{data: stories}] = await Promise.all([
+      useFetch('http://shine.test/api/articles'),
+    ])
     return {
-      stories: BLOG_DATA,
-    };
-  },
+      stories,
+      apiURL
+    }
+  }
 };
 </script>
 
 <style scoped>
+i.bi{
+  margin-right: 0.5rem;
+}
 .card-img-blog {
   height: 250px;
   width: 100%;

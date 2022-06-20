@@ -1,6 +1,6 @@
 <template>
  <div>
-     <iframe src="http://dev.hemantbhutanrealestate.com"></iframe>
+    {{$route.params.id}}
  </div>
 </template>
 

@@ -1,31 +1,31 @@
 <template>
-  <div class="accommodation-element mt-5">
-    <h4>Our Popular Accommodations</h4>
-    <p>Best places to stay in Bhutan</p>
+  <div class="hotel-element mt-5">
+    <h4>Our Popular Hotels</h4>
+    <p>Best Hotels in Bhutan</p>
   </div>
   <button class="btn showButton my-2" :disabled="pending" @click="refresh">get latest data </button>
   <div class="row mb-3">
-    <div
-      v-for="accommodation in spaces"
-      :key="accommodation.id"
+    <div    
+      v-for="hotel in hotels"
+      :key="hotel.id"
       class="col-md-4 col-lg-3 col-xl-3 col-sm-6 col-xs-12 mt-3"
     >
       <div class="card mt-3">
         <div class="card-body">
-          <img :src="apiURL + accommodation.file_path" alt="" class="card-img" />
-          <NuxtLink :to="'/accomodation/'+ accommodation.title" class="accommodation-details">
+          <img :src="apiURL+hotel.file_path" alt="" class="card-img" />
+          <NuxtLink :to="'/accomodation/'+ hotel.title" class="hotel-details">
             <div class="card-details">
               <h6 class="card-title text-truncate">
-                {{ accommodation.title }}
+                {{ hotel.title }}
               </h6>
-              <h6 class="card-text my-3"><i class="bi bi-cash-coin mr-1"></i> Nu. {{ accommodation.price }} / night</h6>
+              <h6 class="card-text my-3"><i class="bi bi-cash-coin mr-1"></i> Nu. {{ hotel.price }} / night</h6>
               <div class="details">
                 <div class="location text-truncate">
-                  <i class="bi bi-geo-alt"></i>{{ accommodation.name }}
+                  <i class="bi bi-geo-alt"></i>{{ hotel.name }}
                 </div>
                 <h6 class="rating">
                   <i class="bi bi-star-fill start-icon mx-1"></i>
-                  {{ accommodation.review_score }} / 5
+                  {{ hotel.review_score }} / 5
                 </h6>
               </div>
             </div>
@@ -35,48 +35,34 @@
     </div>
   </div>
     <div class="d-flex btn-container">
-      <!-- <button @click="limit = !limit" class="btn mt-5 showButton" :class="{limit : !limit}">
+      <button @click="limit = !limit" class="btn mt-5 showButton" :class="{limit : !limit}">
       Show All
-    </button> -->
+    </button>
     </div>
 </template>
 
 <script>
 export default {
-  props: ["accommodations"],
+  props: ["hotels"],
 
-data() {
-    return {
-      limit: 8,
-    }
-  },
-  computed: {
-    computedObject() {
-      return this.limit ? this.accommodations.slice(0, this.limit) : this.accommodations;
-    }
-  },
-  async setup() {
+async setup() {
     const catSubtitle = 'Eastern Bhutan Destinations Now Open';
     const apiURL = 'http://shine.test/uploads/';
-    const [{data: spaces},refresh,pending] = await Promise.all([
-      useFetch('http://shine.test/api/bc_spaces'),
+    const [{data: hotels}, refresh, pending] = await Promise.all([
+      useFetch('http://shine.test/api/bc_hotels'),
     ])
     return {
-      spaces,
+      hotels,
       apiURL,
       pending,
       refresh,
       catSubtitle
     }
   }
-
 };
 </script>
 
 <style scoped>
-i.bi{
-  margin-right: 0.5rem;
-}
 .btn-container{
   justify-content:flex-end;
 }
@@ -128,11 +114,11 @@ button.limit{
 .price {
   text-align: right;
 }
-.accommodation-details {
+.hotel-details {
   text-decoration: none;
   color: #2c3e50;
 }
-.accommodation-details:hover {
+.hotel-details:hover {
   color: #f7941e;
 }
 </style>

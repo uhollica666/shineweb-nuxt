@@ -1,133 +1,71 @@
 <template>
-  <div class="accordion mt-5 accordion-flush sticky-top app-sticky-top">
+  <div class="accordion mt-3 accordion-flush sticky-top app-sticky-top">
     <div class="accordion-item">
       <h2 class="accordion-header">
-        <button
-          class="accordion-button"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseOne"
-          aria-expanded="false"
-          aria-controls="collapseOne"
-        >
-          <i class="bi bi-sort-down"></i>Home Filters
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+          aria-expanded="false" aria-controls="collapseOne">
+          <i class="bi bi-sort-down"></i> Filter
         </button>
       </h2>
-      <div
-        id="collapseOne"
-        class="accordion-collapse collapse show"
-        aria-labelledby="headingOne"
-        data-bs-parent="#accordionExample"
-      >
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample">
         <div class="accordion-body">
           <div class="c">
             <div class="sidebar-filters">
-              <div class="heading">
-                <h6 class="mb-3">Search Anything</h6>
-              </div>
-              <form class="form-inline mb-3" for="search" @submit.prevent="">
-                <input
-                  class="form-control"
-                  type="search"
-                  placeholder="Search"
-                  id="search"
-                  v-model="search"
-                  @keydown="searchFilter(search)"
-                />
-              </form>
 
-              <div class="heading">
-                <h6 class="mb-3">Filter By Dzongkhag</h6>
-              </div>
-              <div class="form-check" v-for="filter in filters" :key="filter">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault1"
-                  @click="() => filterItems(filter)"
-                />
-                <label
-                  class="form-check-label dzongkhag-filter-each"
-                  for="flexRadioDefault1"
-                >
-                  {{ filter }}
-                </label>
+              <div class="block-1 mb-3">
+                <h6>Handicrafts</h6>
+                <ul class="home-block handicraft-block">
+                  <li v-for="handicraft in homeHandicrafts" :key="handicraft">
+                    <NuxtLink :to="'/handicrafts/'+ handicraft">{{handicraft}}</NuxtLink>
+                  </li>
+                </ul>
               </div>
 
-              <div v-show="$route.path === '/'">
-                <div class="heading">
-                  <h6 class="mb-3 mt-3">Filter By Rating</h6>
-                </div>
-                <div
-                  class="form-check"
-                  v-for="starRating in starRatings"
-                  :key="starRating"
-                >
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="flexRadioDefault"
-                    id="flexRadioDefault1"
-                    @click="() => starFilter(starRating)"
-                  />
-                  <label
-                    class="form-check-label dzongkhag-filter-each"
-                    for="flexRadioDefault1"
-                  >
-                    {{ starRating }} <i class="bi bi-star"></i> Properties
-                  </label>
-                </div>
+              <div class="block-2 my-3">
+                <h6>Agriculture</h6>
+                <ul class="home-block Agriculture-block">
+                  <li v-for="product in homeAgriproducts" :key="product">
+                    <NuxtLink :to="'/agriproducts/' + product">{{product}}</NuxtLink>
+                  </li>
+                </ul>
               </div>
 
-              <div v-show="$route.path === '/tours'">
-                <div class="heading">
-                  <h6 class="mt-3">Filter By Price range</h6>
+              <div class="block-2 my-3">
+                <h6>Browse Dzongkhags</h6>
+                <ul class="home-block Dzongkhag-block">
+                  <li v-for="dzongkhag in dzongkhags" :key="dzongkhag">
+                    <NuxtLink :to="'/dzongkhags/'+ dzongkhag">{{dzongkhag}}</NuxtLink>
+                  </li>                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item ">
+      <h2 class="accordion-header ">
+        <button class="accordion-button " type="button" >
+          Popular Attraction
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="c">
+            <div class="sidebar-filters">
+
+              <div class="block-1 mb-3">
+                <div class="image-block my-2">
+                  <img src="~/assets/img/brokpa.jpg" alt="">
                 </div>
-                <div class="form-group-range mb-3">
-                  <div class="input-group">
-                    <span class="input-group-text-minmax bg-light">Min.</span>
-                    <input
-                      type="number"
-                      class="input-min form-control"
-                      placeholder="Min"
-                      aria-label="Min"
-                      aria-describedby="basic-addon1"
-                      value="25000"
-                    />
-                  </div>
-                  <div class="separator">-</div>
-                  <div class="input-group">
-                    <span class="input-group-text-minmax bg-ligh">Max.</span>
-                    <input
-                      type="text"
-                      class="input-max form-control"
-                      placeholder="Max"
-                      aria-label="Max"
-                      aria-describedby="basic-addon1"
-                      value="75000"
-                    />
-                  </div>
-                </div>
-                <div class="slider mb-3 mt-4">
-                  <div class="progress-slider"></div>
-                </div>
-                <div class="range-input">
-                  <input
-                    type="range"
-                    class="range-min"
-                    min="0"
-                    max="100000"
-                    value="25000"
-                  />
-                  <input
-                    type="range"
-                    class="range-max"
-                    min="0"
-                    max="100000"
-                    value="75000"
-                  />
-                </div>
+                <ul class="home-block">
+                  <li v-for="attraction in popAttractions" :key="attraction">
+                    <NuxtLink :to="'/stories/'+ attraction">{{attraction}}</NuxtLink>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -138,8 +76,26 @@
 </template>
 
 <script>
-const filters = [
-  "All",
+
+const homeHandicrafts = [
+  'Textile',
+  'Cane & Bamboo',
+  'Wood Crafts',
+  'Metal Crafts',
+  'General Souvenir'
+]
+
+const homeAgriproducts = [
+  'Fresh Vegetables',
+  'Food Grains',
+  'Fresh Fruits',
+  'Proccessed Food',
+  'Dairy Products',
+  'Mushrooms',
+  'Edible Wild Plants'
+]
+
+const dzongkhags = [
   "Dagana",
   "Lhuentse",
   "Mongar",
@@ -148,23 +104,50 @@ const filters = [
   "Trashigang",
   "Zhemgang",
 ];
-const starRatings = ["All", 3, 4, 5];
+const popAttractions = [
+  'Brokpa of Merak Sakten',
+  'Chorten Kora - Gompa Kora',
+  'Mongar - Birding Capital',
+  'Textile of Khoma',
+  'Cotton Farming, Thongsa',
+  'Royal Manas National Park',
+  'Lhamoizingkha Excursion',
+]
 export default {
   data() {
     return {
-      filters,
-      starRatings
+      homeHandicrafts,
+      homeAgriproducts,
+      dzongkhags,
+      popAttractions,
     };
   },
 }
 </script>
 
 <style scoped>
+.image-block img{
+  width: 100%;
+  border-radius: 5px;
+  height: 250px;
+  object-fit: cover;
+  transition: 300ms;
+}
+.image-block img:hover{
+  filter: brightness(0.5);
+}
+
+.app-sticky-top-2{
+  top: 100vh;
+  margin-top: 20rem;
+}
 .app-sticky-top {
   top: 8rem;
 }
+
 .accordion-button:not(.collapsed)::after {
   background-image: var(--bs-accordion-btn-icon);
+  color: #666 !important;
 }
 
 .accordion-button:not(.collapsed) {
@@ -184,7 +167,7 @@ export default {
 
 .accordion {
   background: #fafafa;
-  max-width: 80%;
+  max-width: 85%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-top: 10px;
@@ -284,6 +267,13 @@ input[type="range"]::-moz-range-thumb {
   -moz-appearance: none;
 }
 
+.home-block li a{
+  color: #2c3e50;
+  text-decoration: none;
+}
+.home-block li a:hover{
+  color: #f7941e;
+}
 
 
 @media only screen and (max-width: 992px) {

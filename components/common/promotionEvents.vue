@@ -8,14 +8,14 @@
       >
         <div class="card mt-3">
           <div class="card-body">
-            <img :src="prompEvent.image_id" alt="" class="card-img" />
-            <NuxtLink to="/#AccomodationDetails" class="category-details">
+            <img :src="apiURL + prompEvent.file_path" alt="" class="card-img" />
+            <NuxtLink :to="'/stories/'+ prompEvent.title" class="category-details">
               <div class="card-details">
                 <h6 class="card-title text-truncate">
-                  {{ prompEvent.event_id }}
+                  {{ prompEvent.title }}
                 </h6>
                 <div class="location text-truncate">
-                  <i class="bi bi-geo-alt"></i>{{ prompEvent.location_id }}
+                  <i class="bi bi-tag"></i>{{ prompEvent.name }}
                 </div>
               </div>
             </NuxtLink>
@@ -27,13 +27,21 @@
 </template>
 
 <script>
-import PROMOTIONEVENT_DATA from "~/APIs/PromotionEvents_DATA.json";
-
 export default {
-  data() {
+  async setup() {
+    const apiURL = 'http://shine.test/uploads/';
+    const [{data: prompEvents}] = await Promise.all([
+      useFetch('http://shine.test/api/articles'),
+    ])
     return {
-      prompEvents: PROMOTIONEVENT_DATA,
-    };
-  },
+      prompEvents,
+      apiURL
+    }
+  }
 };
 </script>
+<style scoped>
+i.bi{
+  margin-right: 0.5rem;
+}
+</style>

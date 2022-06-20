@@ -3,27 +3,28 @@
     <h4>Explore Our Popular Tours</h4>
     <p class="mt-3">Discover the Eastern Bhutan</p>
   </div>
+  <button class="btn showButton my-2" :disabled="pending" @click="refresh">get latest data </button>
   <div class="row mb-3">
 
-      <div v-for="tour in computedObject" :key="tour.id" class="col-md-4 col-lg-3 col-xl-3 col-sm-6 col-xs-12 mt-2">
+      <div v-for="tour in tours" :key="tour.id" class="col-md-4 col-lg-3 col-xl-3 col-sm-6 col-xs-12 mt-2">
         <div class="card mt-2" loading="lazy">
           <div class="card-body">
-            <img :src="tour.image_id" alt="" class="card-img" />
-            <NuxtLink :to="'/tour/' + tour.post_id" class="accommodation-details">
+            <img :src="apiURL + tour.file_path" alt="" class="card-img" />
+            <NuxtLink :to="'/tour/' + tour.title" class="accommodation-details">
               <div class="card-details">
                 <h6 class="card-title text-truncate">
-                  {{ tour.post_id }}
+                  {{ tour.title }}
                 </h6>
                 <h6 class="card-text my-3">
                   <i class="bi bi-cash-coin mr-1"></i> Nu. {{ tour.price }} /
                   night
                 </h6>
                 <div class="location-tours text-truncate mb-2">
-                  <i class="bi bi-geo-alt"></i>{{ tour.location_id }}
+                  <i class="bi bi-geo-alt"></i>{{ tour.name }}
                 </div>
                 <div class="duration-tours text-truncate">
-                  <i class="bi bi-stopwatch"></i>
-                  {{ tour.duration_time }}
+                  <i class="bi bi-stopwatch"></i> 
+                  {{ tour.date_form_to}}
                 </div>
               </div>
             </NuxtLink>
@@ -32,10 +33,6 @@
       </div>
   </div>
   <div class="d-flex btn-container">
-
-    <button @click="limit = !limit" class="btn mt-5 showButton" :class="{limit : !limit}">
-      {{ limit === !limit ? "Show Less" : "Show All" }}
-    </button>
   </div>
 
 </template>
@@ -49,16 +46,35 @@ export default {
       limit: 8,
     }
   },
+
   computed: {
     computedObject() {
       return this.limit ? this.tours.slice(0, this.limit) : this.tours;
     }
   },
+
+  async setup() {
+    const catSubtitle = 'Eastern Bhutan Destinations Now Open';
+    const apiURL = 'http://shine.test/uploads/';
+    const [{data: tours}, pending, refresh] = await Promise.all([
+      useFetch('http://shine.test/api/bc_tours'),
+    ])
+    return {
+      tours,
+      apiURL,
+      pending,
+      refresh,
+      catSubtitle
+    }
+  }
 };
 
 </script>
 
 <style scoped>
+i.bi{
+  margin-right: 0.5rem;
+}
 
 .btn-container{
   justify-content:flex-end;

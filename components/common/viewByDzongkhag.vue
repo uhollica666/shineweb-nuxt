@@ -12,12 +12,12 @@
           <div class="card-body">
             <img :src="dzongkhag.image_id" alt="" class="card-img-dzo" />
             <NuxtLink
-              :to="'/dzongkhags/' + dzongkhag.location_id"
+              :to="'/dzongkhags/' + dzongkhag.name"
               class="category-details text-center"
             >
               <div class="card-details">
                 <h6 class="card-title text-truncate">
-                  {{ dzongkhag.location_id }}
+                  {{ dzongkhag.name }}
                 </h6>
               </div>
             </NuxtLink>
@@ -29,19 +29,19 @@
 </template>
 
 <script>
-import DZONGKHAG_DATA from "~/APIs/Dzongkhags_DATA.json";
 export default {
-  setup() {
-        const catSubtitle = 'Eastern Bhutan Destinations Now Open';
-        return {
-            catSubtitle,
-        }
-    },
-  data() {
+  async setup() {
+    const catSubtitle = 'Eastern Bhutan Destinations Now Open';
+    const apiURL = 'http://shine.test/uploads/';
+    const [{data: dzongkhags}] = await Promise.all([
+      useFetch('http://shine.test/api/bc_locations'),
+    ])
     return {
-      dzongkhags: DZONGKHAG_DATA,
-    };
-  },
+      dzongkhags,
+      apiURL,
+      catSubtitle
+    }
+  }
 };
 </script>
 

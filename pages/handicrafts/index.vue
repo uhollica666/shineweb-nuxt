@@ -20,6 +20,7 @@
       
           <CommonRecentProducts />
           <CommonPopularProducts />
+          <LazyCommonBlogPost />
     </div>
   </NuxtLayout>
 </template>

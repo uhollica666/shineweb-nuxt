@@ -21,10 +21,12 @@
             <br />Forgot <NuxtLink to="/forgotPassword">Password?</NuxtLink>
         </div>
     </form>
+    <notifications />
 </template>
 
 <script>
 import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -38,15 +40,18 @@ export default {
                 email: this.email,
                 password: this.password,
             });
-                   
+            console.log(response);
+
+            if (process.client) {
+                localStorage.setItem('token', response.data.token)
+            }
+
             this.$router.push('/');
+
         },
 
     },
-    // setup: {
-    //     const token = useState('token', response.data.token),
-    //     const user = useState('user', response.data.user)
-    // },
+
 };
 </script>
 
