@@ -1,6 +1,8 @@
 <template>
   <div class="by-category mt-5 mb-2">
-    <h4 class="heading text-capitalize">Explore {{ $route.name }} by Dzongkhags</h4>
+    <h4 class="heading text-capitalize">
+      Explore {{ $route.name }} by Dzongkhags
+    </h4>
     <p class="mt-3">{{ catSubtitle }}</p>
     <div class="row">
       <div
@@ -31,17 +33,17 @@
 <script>
 export default {
   async setup() {
-    const catSubtitle = 'Eastern Bhutan Destinations Now Open';
-    const apiURL = 'http://shine.test/uploads/';
-    const [{data: dzongkhags}] = await Promise.all([
-      useFetch('http://shine.test/api/bc_locations'),
-    ])
+    const catSubtitle = "Eastern Bhutan Destinations Now Open";
+    const apiURL = "http://dev.hemantbhutanrealestate.com/uploads/";
+    const [{ data: dzongkhags }] = await Promise.all([
+      useFetch("http://dev.hemantbhutanrealestate.com/api/bc_locations"),
+    ]);
     return {
       dzongkhags,
       apiURL,
-      catSubtitle
-    }
-  }
+      catSubtitle,
+    };
+  },
 };
 </script>
 

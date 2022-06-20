@@ -3,7 +3,9 @@
     <h4>Our Popular Accommodations</h4>
     <p>Best places to stay in Bhutan</p>
   </div>
-  <button class="btn showButton my-2" :disabled="pending" @click="refresh">get latest data </button>
+  <button class="btn showButton my-2" :disabled="pending" @click="refresh">
+    get latest data
+  </button>
   <div class="row mb-3">
     <div
       v-for="accommodation in spaces"
@@ -12,13 +14,23 @@
     >
       <div class="card mt-3">
         <div class="card-body">
-          <img :src="apiURL + accommodation.file_path" alt="" class="card-img" />
-          <NuxtLink :to="'/accomodation/'+ accommodation.title" class="accommodation-details">
+          <img
+            :src="apiURL + accommodation.file_path"
+            alt=""
+            class="card-img"
+          />
+          <NuxtLink
+            :to="'/accomodation/' + accommodation.title"
+            class="accommodation-details"
+          >
             <div class="card-details">
               <h6 class="card-title text-truncate">
                 {{ accommodation.title }}
               </h6>
-              <h6 class="card-text my-3"><i class="bi bi-cash-coin mr-1"></i> Nu. {{ accommodation.price }} / night</h6>
+              <h6 class="card-text my-3">
+                <i class="bi bi-cash-coin mr-1"></i> Nu.
+                {{ accommodation.price }} / night
+              </h6>
               <div class="details">
                 <div class="location text-truncate">
                   <i class="bi bi-geo-alt"></i>{{ accommodation.name }}
@@ -34,57 +46,58 @@
       </div>
     </div>
   </div>
-    <div class="d-flex btn-container">
-      <!-- <button @click="limit = !limit" class="btn mt-5 showButton" :class="{limit : !limit}">
+  <div class="d-flex btn-container">
+    <!-- <button @click="limit = !limit" class="btn mt-5 showButton" :class="{limit : !limit}">
       Show All
     </button> -->
-    </div>
+  </div>
 </template>
 
 <script>
 export default {
   props: ["accommodations"],
 
-data() {
+  data() {
     return {
       limit: 8,
-    }
+    };
   },
   computed: {
     computedObject() {
-      return this.limit ? this.accommodations.slice(0, this.limit) : this.accommodations;
-    }
+      return this.limit
+        ? this.accommodations.slice(0, this.limit)
+        : this.accommodations;
+    },
   },
   async setup() {
-    const catSubtitle = 'Eastern Bhutan Destinations Now Open';
-    const apiURL = 'http://shine.test/uploads/';
-    const [{data: spaces},refresh,pending] = await Promise.all([
-      useFetch('http://shine.test/api/bc_spaces'),
-    ])
+    const catSubtitle = "Eastern Bhutan Destinations Now Open";
+    const apiURL = "http://dev.hemantbhutanrealestate.com/uploads/";
+    const [{ data: spaces }, refresh, pending] = await Promise.all([
+      useFetch("http://dev.hemantbhutanrealestate.com/api/bc_spaces"),
+    ]);
     return {
       spaces,
       apiURL,
       pending,
       refresh,
-      catSubtitle
-    }
-  }
-
+      catSubtitle,
+    };
+  },
 };
 </script>
 
 <style scoped>
-i.bi{
+i.bi {
   margin-right: 0.5rem;
 }
-.btn-container{
-  justify-content:flex-end;
+.btn-container {
+  justify-content: flex-end;
 }
-button.limit{
+button.limit {
   display: none;
 }
 
-.showButton{
+.showButton {
   max-width: 100%;
   background: #f7941e;
   color: #fff;

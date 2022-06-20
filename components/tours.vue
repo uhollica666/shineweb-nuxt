@@ -3,38 +3,41 @@
     <h4>Explore Our Popular Tours</h4>
     <p class="mt-3">Discover the Eastern Bhutan</p>
   </div>
-  <button class="btn showButton my-2" :disabled="pending" @click="refresh">get latest data </button>
+  <button class="btn showButton my-2" :disabled="pending" @click="refresh">
+    get latest data
+  </button>
   <div class="row mb-3">
-
-      <div v-for="tour in tours" :key="tour.id" class="col-md-4 col-lg-3 col-xl-3 col-sm-6 col-xs-12 mt-2">
-        <div class="card mt-2" loading="lazy">
-          <div class="card-body">
-            <img :src="apiURL + tour.file_path" alt="" class="card-img" />
-            <NuxtLink :to="'/tour/' + tour.title" class="accommodation-details">
-              <div class="card-details">
-                <h6 class="card-title text-truncate">
-                  {{ tour.title }}
-                </h6>
-                <h6 class="card-text my-3">
-                  <i class="bi bi-cash-coin mr-1"></i> Nu. {{ tour.price }} /
-                  night
-                </h6>
-                <div class="location-tours text-truncate mb-2">
-                  <i class="bi bi-geo-alt"></i>{{ tour.name }}
-                </div>
-                <div class="duration-tours text-truncate">
-                  <i class="bi bi-stopwatch"></i> 
-                  {{ tour.date_form_to}}
-                </div>
+    <div
+      v-for="tour in tours"
+      :key="tour.id"
+      class="col-md-4 col-lg-3 col-xl-3 col-sm-6 col-xs-12 mt-2"
+    >
+      <div class="card mt-2" loading="lazy">
+        <div class="card-body">
+          <img :src="apiURL + tour.file_path" alt="" class="card-img" />
+          <NuxtLink :to="'/tour/' + tour.title" class="accommodation-details">
+            <div class="card-details">
+              <h6 class="card-title text-truncate">
+                {{ tour.title }}
+              </h6>
+              <h6 class="card-text my-3">
+                <i class="bi bi-cash-coin mr-1"></i> Nu. {{ tour.price }} /
+                night
+              </h6>
+              <div class="location-tours text-truncate mb-2">
+                <i class="bi bi-geo-alt"></i>{{ tour.name }}
               </div>
-            </NuxtLink>
-          </div>
+              <div class="duration-tours text-truncate">
+                <i class="bi bi-stopwatch"></i>
+                {{ tour.date_form_to }}
+              </div>
+            </div>
+          </NuxtLink>
         </div>
       </div>
+    </div>
   </div>
-  <div class="d-flex btn-container">
-  </div>
-
+  <div class="d-flex btn-container"></div>
 </template>
 
 <script>
@@ -44,45 +47,44 @@ export default {
   data() {
     return {
       limit: 8,
-    }
+    };
   },
 
   computed: {
     computedObject() {
       return this.limit ? this.tours.slice(0, this.limit) : this.tours;
-    }
+    },
   },
 
   async setup() {
-    const catSubtitle = 'Eastern Bhutan Destinations Now Open';
-    const apiURL = 'http://shine.test/uploads/';
-    const [{data: tours}, pending, refresh] = await Promise.all([
-      useFetch('http://shine.test/api/bc_tours'),
-    ])
+    const catSubtitle = "Eastern Bhutan Destinations Now Open";
+    const apiURL = "http://dev.hemantbhutanrealestate.com/uploads/";
+    const [{ data: tours }, pending, refresh] = await Promise.all([
+      useFetch("http://dev.hemantbhutanrealestate.com/api/bc_tours"),
+    ]);
     return {
       tours,
       apiURL,
       pending,
       refresh,
-      catSubtitle
-    }
-  }
+      catSubtitle,
+    };
+  },
 };
-
 </script>
 
 <style scoped>
-i.bi{
+i.bi {
   margin-right: 0.5rem;
 }
 
-.btn-container{
-  justify-content:flex-end;
+.btn-container {
+  justify-content: flex-end;
 }
-button.limit{
+button.limit {
   display: none;
 }
-.showButton{
+.showButton {
   max-width: 100%;
   background: #f7941e;
   color: #fff;

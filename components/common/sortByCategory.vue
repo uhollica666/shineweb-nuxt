@@ -1,6 +1,8 @@
 <template>
   <div class="by-category mt-5 mb-3" v-if="$route.name === 'accommodation'">
-    <h4 class="heading text-capitalize">Explore {{ $route.name }} by Category</h4>
+    <h4 class="heading text-capitalize">
+      Explore {{ $route.name }} by Category
+    </h4>
     <p class="mt-3">{{ subTitleCategory }}</p>
     <div class="row">
       <div
@@ -27,7 +29,9 @@
     </div>
   </div>
   <div class="by-category mt-5 mb-3" v-if="$route.name === 'tours'">
-    <h4 class="heading text-capitalize">Explore {{ $route.name }} by Category</h4>
+    <h4 class="heading text-capitalize">
+      Explore {{ $route.name }} by Category
+    </h4>
     <p class="mt-3">{{ subTitleCategory }}</p>
     <div class="row">
       <div
@@ -39,7 +43,7 @@
           <div class="card-body">
             <img :src="category.image_id" alt="" class="card-img" />
             <NuxtLink
-              :to="'/tours/'+ category.name"
+              :to="'/tours/' + category.name"
               class="category-details text-center"
             >
               <div class="card-details">
@@ -61,19 +65,20 @@ import CATEGORY_DATA from "~/APIs/Category_DATA.json";
 
 export default {
   async setup() {
-    const catSubtitle = 'Eastern Bhutan Destinations Now Open';
-    const apiURL = 'http://shine.test/uploads/';
-    const [{data: categoryAccommodations}, {data:categoryTours}] = await Promise.all([
-      useFetch('http://shine.test/api/bc_spaces'),
-      useFetch('http://shine.test/api/bc_tour_category'),
-    ])
+    const catSubtitle = "Eastern Bhutan Destinations Now Open";
+    const apiURL = "http://dev.hemantbhutanrealestate.com/uploads/";
+    const [{ data: categoryAccommodations }, { data: categoryTours }] =
+      await Promise.all([
+        useFetch("http://dev.hemantbhutanrealestate.com/api/bc_spaces"),
+        useFetch("http://dev.hemantbhutanrealestate.com/api/bc_tour_category"),
+      ]);
     return {
       categoryAccommodations: CATEGORY_DATA,
       categoryTours,
       apiURL,
       catSubtitle,
-    }
-  }
+    };
+  },
 };
 </script>
 

@@ -3,22 +3,27 @@
     <h4>Our Popular Hotels</h4>
     <p>Best Hotels in Bhutan</p>
   </div>
-  <button class="btn showButton my-2" :disabled="pending" @click="refresh">get latest data </button>
+  <button class="btn showButton my-2" :disabled="pending" @click="refresh">
+    get latest data
+  </button>
   <div class="row mb-3">
-    <div    
+    <div
       v-for="hotel in hotels"
       :key="hotel.id"
       class="col-md-4 col-lg-3 col-xl-3 col-sm-6 col-xs-12 mt-3"
     >
       <div class="card mt-3">
         <div class="card-body">
-          <img :src="apiURL+hotel.file_path" alt="" class="card-img" />
-          <NuxtLink :to="'/accomodation/'+ hotel.title" class="hotel-details">
+          <img :src="apiURL + hotel.file_path" alt="" class="card-img" />
+          <NuxtLink :to="'/accomodation/' + hotel.title" class="hotel-details">
             <div class="card-details">
               <h6 class="card-title text-truncate">
                 {{ hotel.title }}
               </h6>
-              <h6 class="card-text my-3"><i class="bi bi-cash-coin mr-1"></i> Nu. {{ hotel.price }} / night</h6>
+              <h6 class="card-text my-3">
+                <i class="bi bi-cash-coin mr-1"></i> Nu. {{ hotel.price }} /
+                night
+              </h6>
               <div class="details">
                 <div class="location text-truncate">
                   <i class="bi bi-geo-alt"></i>{{ hotel.name }}
@@ -34,43 +39,47 @@
       </div>
     </div>
   </div>
-    <div class="d-flex btn-container">
-      <button @click="limit = !limit" class="btn mt-5 showButton" :class="{limit : !limit}">
+  <div class="d-flex btn-container">
+    <button
+      @click="limit = !limit"
+      class="btn mt-5 showButton"
+      :class="{ limit: !limit }"
+    >
       Show All
     </button>
-    </div>
+  </div>
 </template>
 
 <script>
 export default {
   props: ["hotels"],
 
-async setup() {
-    const catSubtitle = 'Eastern Bhutan Destinations Now Open';
-    const apiURL = 'http://shine.test/uploads/';
-    const [{data: hotels}, refresh, pending] = await Promise.all([
-      useFetch('http://shine.test/api/bc_hotels'),
-    ])
+  async setup() {
+    const catSubtitle = "Eastern Bhutan Destinations Now Open";
+    const apiURL = "http://dev.hemantbhutanrealestate.com/uploads/";
+    const [{ data: hotels }, refresh, pending] = await Promise.all([
+      useFetch("http://dev.hemantbhutanrealestate.com/api/bc_hotels"),
+    ]);
     return {
       hotels,
       apiURL,
       pending,
       refresh,
-      catSubtitle
-    }
-  }
+      catSubtitle,
+    };
+  },
 };
 </script>
 
 <style scoped>
-.btn-container{
-  justify-content:flex-end;
+.btn-container {
+  justify-content: flex-end;
 }
-button.limit{
+button.limit {
   display: none;
 }
 
-.showButton{
+.showButton {
   max-width: 100%;
   background: #f7941e;
   color: #fff;
